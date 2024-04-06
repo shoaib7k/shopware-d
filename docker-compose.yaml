@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  shopware:
+    image: shopware/shopware:6.4
+    ports:
+      - "80:80"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_DATABASE=shopware
+      - MYSQL_USER=shopware
+      - MYSQL_PASSWORD=shopware
+    volumes:
+      - ./public:/var/www/html/public
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:10.11
+    environment:
+      - MYSQL_DATABASE=shopware
+      - MYSQL_USER=shopware
+      - MYSQL_PASSWORD=shopware
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    volumes:
+      - ./mysql-data:/var/lib/mysql
